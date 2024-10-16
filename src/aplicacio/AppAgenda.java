@@ -1,9 +1,81 @@
 package aplicacio;
 
+import classes.Adressa;
+import classes.Agenda;
+import classes.Contacte;
+import classes.Teclat;
+import eines.EinesJoan;
 import menu.Menu;
 
+import java.util.Scanner;
+
+import static eines.EinesJoan.pintaLinia;
+
 public class AppAgenda {
+    static Agenda agenda = new Agenda();
+
+    public static void mostrarContactes(){
+        agenda.mostrarContactes();
+    }
+
+    public static void afegirContacte(){
+        String nomContacte, cognomContacte;
+        nomContacte = Teclat.llegirCadena("Entra el nom del contacte: ");
+        cognomContacte = Teclat.llegirCadena("Entra el cognom del contacte: ");
+        Contacte nouContacte = new Contacte(nomContacte, cognomContacte);
+        agenda.afegirContacte(nouContacte);
+    }
+
+    public static void buscarContacte(){
+        String nomContacte, cognomContacte;
+        nomContacte = Teclat.llegirCadena("Entra el nom del contacte: ");
+        cognomContacte = Teclat.llegirCadena("Entra el cognom del contacte: ");
+        if(agenda.buscarContacte(nomContacte, cognomContacte)){
+            System.out.println("Contacte trobat!");
+        } else {
+            System.out.println("Contacte no trobat!");
+        };
+    }
+
+    public static void eliminarContacte(){
+        Scanner teclat = new Scanner(System.in);
+        String nomContacte, cognomContacte;
+        char resposta = 'N';
+
+        nomContacte = Teclat.llegirCadena("Entra el nom del contacte: ");
+        cognomContacte = Teclat.llegirCadena("Entra el cognom del contacte: ");
+        Contacte contacteAEsborrar = new Contacte(nomContacte, cognomContacte);
+
+        if(agenda.buscarContacte(nomContacte, cognomContacte)){
+            System.out.print("Estas segur d'eliminar el contacte (S/N): ");
+            resposta = teclat.next().charAt(0);
+            // teclat.close();
+            if ((resposta == 'S') || (resposta == 's') ){
+                agenda.eliminarContacte(contacteAEsborrar);
+                System.out.println("Contacte eliminat correctament!");
+            }
+        } else {
+            System.out.println("Contacte no trobat!");
+        };
+
+    }
+
+    public static void modificarContacte(){
+        String nomContacte, cognomContacte;
+        nomContacte = Teclat.llegirCadena("Entra el nom del contacte: ");
+        cognomContacte = Teclat.llegirCadena("Entra el cognom del contacte: ");
+        if(agenda.buscarContacte(nomContacte, cognomContacte)){
+            System.out.println("Contacte trobat!");
+        } else {
+            System.out.println("Contacte no trobat!");
+        };
+    }
+
+
     public static void main(String[] args) {
+
+
+
         String[] opcions = {
                 "Afegir Contacte",
                 "Buscar Contacte",
@@ -19,19 +91,19 @@ public class AppAgenda {
                     "Escull una opció");
             switch (opcio) {
                 case 1:
-//                    afegirContacte();
+                    afegirContacte();
                     break;
                 case 2:
-//                    buscarContacte();
+                    buscarContacte();
                     break;
                 case 3:
 //                    modificarContacte();
                     break;
                 case 4:
-//                    eliminarContacte();
+                    eliminarContacte();
                     break;
                 case 5:
-//                    mostrarContactes();
+                    mostrarContactes();
                     break;
                 case 6:
 //                    guardarAgenda(nomFitxerAmbAgenda);
